@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -248,12 +248,18 @@
         .text-left-input {
             text-align: left !important;
         }
-        .legend {
-            font-size: 12px;
-            color: var(--gray);
-            margin-top: -10px;
+        .global-legend {
+            font-size: 13px;
+            color: #333333;
+            background-color: var(--acfc-light-blue);
+            padding: 10px 15px;
+            border-radius: 6px;
             margin-bottom: 20px;
             font-style: italic;
+            font-weight: bold;
+            border-left: 4px solid var(--acfc-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .split-grid {
             display: grid;
@@ -346,7 +352,7 @@
         </div>
         <div class="meta-item">
             <span>Coach</span>
-            <input type="text" id="coachName" value="John Mathew Dela Cruz" class="text-left-input auto-save">
+            <input type="text" id="coachName" value="John Mathew Dela Cruz" class="text-left-input auto-save" oninput="syncCoachNames(this.value)">
         </div>
         <div class="meta-item">
             <span>Assessment Dates</span>
@@ -363,14 +369,17 @@
         </div>
     </div>
 
+    <!-- Global Evaluation Key Statement -->
+    <div class="global-legend">Legend: 4 = Excellent | 3 = Good | 2 = Developing | 1 = Needs Improvement</div>
+
     <div class="section-title">1. Technical Assessment</div>
     <table>
         <thead>
             <tr>
-                <th style="width: 40%;">Skill</th>
-                <th style="width: 20%; text-align: center;">Before</th>
-                <th style="width: 20%; text-align: center;">After</th>
-                <th style="width: 20%; text-align: center;">Improvement</th>
+                <th style="width: 35%;">Skill</th>
+                <th style="width: 15%; text-align: center;">Before</th>
+                <th style="width: 15%; text-align: center;">After</th>
+                <th style="width: 35%; text-align: left; padding-left: 15px;">Notes</th>
             </tr>
         </thead>
         <tbody id="skillsTableBody">
@@ -379,13 +388,12 @@
     </table>
 
     <div class="section-title">2. Mentality</div>
-    <div class="legend">Legend: 4 = Excellent | 3 = Good | 2 = Developing | 1 = Needs Improvement</div>
     <table>
         <thead>
             <tr>
-                <th style="width: 40%;">Attribute</th>
-                <th style="width: 20%; text-align: center;">Rating</th>
-                <th style="width: 40%;">Notes</th>
+                <th style="width: 35%;">Attribute</th>
+                <th style="width: 15%; text-align: center;">Rating</th>
+                <th style="width: 50%;">Notes</th>
             </tr>
         </thead>
         <tbody>
@@ -435,7 +443,7 @@ Engage more in weaker-foot dribbling, wall passing, and turning reps into daily 
     <div class="meta-grid" style="margin-top: 35px; background: transparent; padding: 0; border-left: none;">
         <div class="meta-item" style="border-bottom: 2px solid var(--acfc-blue); padding-bottom: 5px;">
             <span>Coach's Signature</span>
-            <input type="text" id="signature" value="Carl Nazzer N. Castillo" class="text-left-input auto-save">
+            <input type="text" id="signature" value="John Mathew Dela Cruz" class="text-left-input auto-save" oninput="syncCoachNames(this.value)">
         </div>
         <div class="meta-item" style="border-bottom: 2px solid var(--acfc-blue); padding-bottom: 5px;">
             <span>Date</span>
@@ -467,6 +475,11 @@ Engage more in weaker-foot dribbling, wall passing, and turning reps into daily 
         document.body.addEventListener('change', triggerAutoSave);
     };
 
+    function syncCoachNames(value) {
+        document.getElementById("coachName").value = value;
+        document.getElementById("signature").value = value;
+    }
+
     function switchSessionType(shouldClearTableData = true) {
         const selectedType = document.getElementById("sessionType").value;
         localStorage.setItem("acfc_sessionType", selectedType);
@@ -478,9 +491,9 @@ Engage more in weaker-foot dribbling, wall passing, and turning reps into daily 
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td><strong>${skill}</strong></td>
-                <td style="text-align: center;"><input type="text" id="skill_${selectedType}_before_${index}" class="auto-save"></td>
-                <td style="text-align: center;"><input type="text" id="skill_${selectedType}_after_${index}" class="auto-save"></td>
-                <td style="text-align: center;"><input type="text" id="skill_${selectedType}_improv_${index}" class="auto-save"></td>
+                <td style="text-align: center;"><input type="text" id="skill_${selectedType}_before_${index}" placeholder="1-4" class="auto-save"></td>
+                <td style="text-align: center;"><input type="text" id="skill_${selectedType}_after_${index}" placeholder="1-4" class="auto-save"></td>
+                <td><input type="text" id="skill_${selectedType}_notes_${index}" placeholder="Add progression notes..." class="text-left-input auto-save" style="width: 95%;"></td>
             `;
             tableBody.appendChild(row);
         });
