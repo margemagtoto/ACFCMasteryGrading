@@ -342,6 +342,7 @@
         <select id="sessionType" class="session-selector" onchange="switchSessionType()">
             <option value="technical">Technical Mastery</option>
             <option value="attacking">Attacking Efficiency</option>
+            <option value="attacking_younger">Attacking Efficiency (Younger Players)</option>
         </select>
     </div>
 
@@ -458,8 +459,33 @@ Engage more in weaker-foot dribbling, wall passing, and turning reps into daily 
 
 <script>
     const skillSets = {
-        technical: ["Close Control", "First Touch", "Foot Coordination", "Weak Foot Usage", "Ball Manipulation Skills"],
-        attacking: ["Power Shooting", "Shooting Accuracy", "One-Touch Finishing", "First-Touch Prep", "Turn & Shoot", "Quick Take Shot", "Decision Making", "Finishing vs Goalkeeper", "Scanning Goalkeeper"]
+        technical: [
+            "Close Control", 
+            "First Touch", 
+            "Foot Coordination", 
+            "Weak Foot Usage", 
+            "Ball Manipulation Skills"
+        ],
+        attacking: [
+            "Power Shooting", 
+            "Shooting Accuracy", 
+            "One-Touch Finishing", 
+            "First-Touch Prep", 
+            "Turn & Shoot", 
+            "Quick Take Shot", 
+            "Decision Making", 
+            "Finishing vs Goalkeeper", 
+            "Scanning Goalkeeper"
+        ],
+        attacking_younger: [
+            "Inside Foot Technique",
+            "Shoelace (Power) Kick",
+            "Passing Accuracy on the Move",
+            "Shooting on the Move",
+            "Choosing the Best Finish",
+            "Finishing Under Pressure",
+            "Inside Foot & Power Kick Mastery"
+        ]
     };
 
     window.onload = function() {
